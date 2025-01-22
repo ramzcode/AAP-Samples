@@ -20,7 +20,6 @@ class CallbackModule(CallbackBase):
         if not task_vars:
             task_vars = result._result.get('results', {})
 
-        # Safely check for 'comp_name' in task_vars
         if 'comp_name' in task_vars:
             self.comp_name = task_vars['comp_name']
             self._display.display(f"'comp_name' captured: {self.comp_name}", log_only=True)
@@ -29,7 +28,6 @@ class CallbackModule(CallbackBase):
         """
         Add 'comp_name' to job metadata when the playbook completes.
         """
-        self._display.display(f"Stats received: {stats}", log_only=True)
         if self.comp_name:
             # Inject 'comp_name' into job metadata
             stats.custom_stats = {"comp_name": self.comp_name}
