@@ -29,7 +29,10 @@ class CallbackModule(CallbackBase):
         """
         Add 'comp_name' to job metadata when the playbook completes.
         """
+        self._display.display(f"Stats received: {stats}", log_only=True)
         if self.comp_name:
             # Inject 'comp_name' into job metadata
             stats.custom_stats = {"comp_name": self.comp_name}
             self._display.display(f"'comp_name' added to job metadata: {self.comp_name}", log_only=True)
+        else:
+            self._display.display("No comp_name to add to job metadata", log_only=True)
