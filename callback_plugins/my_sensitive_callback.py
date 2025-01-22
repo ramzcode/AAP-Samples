@@ -15,10 +15,11 @@ class CallbackModule(CallbackBase):
         if 'god6' in result._result:
             print('running')
             self.sensitive_data = result._result['god6']
+            self._display.display(f"Captured god6: {self.god6}")
 
     def v2_playbook_on_stats(self, stats):
         # Attach the sensitive data to the job result
-        if self.sensitive_data:
+        if self.god6:
             # Use the custom_stats feature to attach data to the job result
             self._display.display(f"Attaching sensitive data to job result")
-            stats.custom['god6'] = self.sensitive_data
+            stats.custom['god6'] = self.god6
