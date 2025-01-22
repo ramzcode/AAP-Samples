@@ -25,4 +25,3 @@ class CallbackModule(CallbackBase):
             if not hasattr(stats, 'custom'):
                 stats.custom = {}
             stats.custom['god6'] = self.god6
-            stats.custom= {"six": self.god6}
