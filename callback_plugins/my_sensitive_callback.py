@@ -10,8 +10,10 @@ class CallbackModule(CallbackBase):
         self.sensitive_data = None
 
     def v2_runner_on_ok(self, result):
+        print('running')
         # Capture the sensitive variable from the task result
         if 'god6' in result._result:
+            print('running')
             self.sensitive_data = result._result['god6']
 
     def v2_playbook_on_stats(self, stats):
