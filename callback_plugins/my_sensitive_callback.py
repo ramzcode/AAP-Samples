@@ -7,7 +7,7 @@ class CallbackModule(CallbackBase):
 
     def __init__(self):
         super(CallbackModule, self).__init__()
-        self.sensitive_data = None
+        self.god6 = None
 
     def v2_runner_on_ok(self, result):
         print('running')
