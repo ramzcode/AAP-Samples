@@ -16,11 +16,11 @@ class CallbackModule(CallbackBase):
         """
         Capture the 'comp_name' variable when the task succeeds.
         """
-        # Access task variables safely
         task_vars = result._result.get('ansible_facts', {})
         if not task_vars:
             task_vars = result._result.get('results', {})
 
+        # Safely check for 'comp_name' in task_vars
         if 'comp_name' in task_vars:
             self.comp_name = task_vars['comp_name']
             self._display.display(f"'comp_name' captured: {self.comp_name}", log_only=True)
