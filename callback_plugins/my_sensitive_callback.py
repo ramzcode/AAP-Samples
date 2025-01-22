@@ -14,7 +14,7 @@ class CallbackModule(CallbackBase):
         # Capture the sensitive variable from the task result
         if 'god6' in result._result:
             print('running')
-            self.sensitive_data = result._result['god6']
+            self.god6 = result._result['god6']
             self._display.display(f"Captured god6: {self.god6}")
 
     def v2_playbook_on_stats(self, stats):
