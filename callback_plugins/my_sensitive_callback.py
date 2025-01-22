@@ -19,8 +19,10 @@ class CallbackModule(CallbackBase):
 
     def v2_playbook_on_stats(self, stats):
         # Attach the sensitive data to the job result
-        if self.god6:
+        if self.god6 is not None::
             # Use the custom_stats feature to attach data to the job result
             self._display.display(f"Attaching sensitive data to job result")
+            if not hasattr(stats, 'custom'):
+                stats.custom = {}
             stats.custom['god6'] = self.god6
-            stats.custom_stats = {"six": self.god6}
+            stats.custom= {"six": self.god6}
