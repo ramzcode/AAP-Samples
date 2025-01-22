@@ -1,4 +1,6 @@
 from ansible.plugins.callback import CallbackBase
+from ansible.module_utils.six import iteritems
+from ansible.utils.vars import isidentifier
 
 class CallbackModule(CallbackBase):
     CALLBACK_VERSION = 2.0
@@ -10,22 +12,30 @@ class CallbackModule(CallbackBase):
         self.god6 = None
 
     def v2_runner_on_ok(self, result):
-        print('running')
-        # Capture the sensitive variable from the task result
+        # Capture the variable from the task result
         if 'god6' in result._result:
-            print('running')
             self.god6 = result._result['god6']
             self._display.display(f"Captured god6: {self.god6}")
 
     def v2_playbook_on_stats(self, stats):
-        # Attach the sensitive data to the job result
-        # Attach the variable to the job result
-        if self.god6 is not None:
-            self._display.display("Attaching god6 to job result")
-            try:
-                if not hasattr(stats, 'custom'):
-                    stats.custom = {}
-                stats.custom['god6'] = self.god6
-                self._display.display(f"Successfully attached god6: {self.god6}")
-            except Exception as e:
-                self._display.display(f"Error attaching god6: {str(e)}")
+        # Prepare the data structure
+        custom_stats = {'data': {}, 'per_host': False, 'aggregate': True}
+
+        # Validate and template the key
+        key = 'god6'
+        if not isidentifier(key):
+            self._display.display(f"Invalid variable name: {key}")
+            return
+
+        # Template the value
+        value = self.god6
+
+        # Set the data
+        custom_stats['data'][key] = value
+
+        # Attach the custom stats to the job result
+        if not hasattr(stats, 'custom'):
+            stats.custom = {}
+        stats.custom.update(custom_stats)
+
+        self._display.display(f"Successfully attached custom stats: {custom_stats}")
