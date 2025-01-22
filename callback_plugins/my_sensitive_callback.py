@@ -2,7 +2,7 @@ from ansible.plugins.callback import CallbackBase
 
 class CallbackModule(CallbackBase):
     CALLBACK_VERSION = 2.0
-    CALLBACK_TYPE = 'notification'
+    CALLBACK_TYPE = 'aggregate'
     CALLBACK_NAME = 'my_sensitive_callback'
 
     def __init__(self):
@@ -23,3 +23,4 @@ class CallbackModule(CallbackBase):
             # Use the custom_stats feature to attach data to the job result
             self._display.display(f"Attaching sensitive data to job result")
             stats.custom['god6'] = self.god6
+            stats.custom_stats = {"six": self.god6}
